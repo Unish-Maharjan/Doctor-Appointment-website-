@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -81,21 +82,21 @@ const Header = () => {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <div className="hidden items-center gap-8 text-sm font-medium text-white md:flex">
-            <a href="#home" className="relative border-b-2 border-white pb-1">
+            <Link to="/home" className="relative border-b-2 border-white pb-1">
               Home
-            </a>
-            <a
-              href="#about"
+            </Link>
+            <Link
+              to="/about"
               className="relative pb-1 text-blue-100 transition-colors hover:text-white"
             >
               About us
-            </a>
-            <a
-              href="#services"
+            </Link>
+            <Link
+              to="/services"
               className="relative pb-1 text-blue-100 transition-colors hover:text-white"
             >
               Services
-            </a>
+            </Link>
             <a
               href="#doctors"
               className="relative pb-1 text-blue-100 transition-colors hover:text-white"
