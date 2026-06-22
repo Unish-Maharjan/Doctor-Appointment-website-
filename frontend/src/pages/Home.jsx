@@ -284,9 +284,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Doctors Section */}
-      <Doctors/> 
-
       {/* News Section */}
       <News/>
 
