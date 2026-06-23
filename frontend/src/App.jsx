@@ -4,6 +4,8 @@ import About from "./pages/About";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Services from "./pages/Services";
+import DoctorsPage from "./pages/DoctorsPage";
+import Contact from "./pages/Contact";
 
 function App() {
   const router = createBrowserRouter([
@@ -22,6 +24,14 @@ function App() {
     {
       path: "/services",
       element: <><Header/><Services/><Footer/></>,
+    },
+    {
+      path: "/doctors",
+      element: <><Header/><DoctorsPage/><Footer/></>,
+    },
+    {
+      path: "/contact",
+      element: <><Header/><Contact/><Footer/></>,
     },
   ]);
 

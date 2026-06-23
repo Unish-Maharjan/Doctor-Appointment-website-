@@ -97,24 +97,24 @@ const Header = () => {
             >
               Services
             </Link>
-            <a
-              href="#doctors"
+            <Link
+              to="/doctors"
               className="relative pb-1 text-blue-100 transition-colors hover:text-white"
             >
               Doctors
-            </a>
+            </Link>
             <a
               href="#news"
               className="relative pb-1 text-blue-100 transition-colors hover:text-white"
             >
               News
             </a>
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="relative pb-1 text-blue-100 transition-colors hover:text-white"
             >
               Contact
-            </a>
+            </Link>
           </div>
 
           <input type="checkbox" id="mobile-nav-toggle" className="peer hidden" />
