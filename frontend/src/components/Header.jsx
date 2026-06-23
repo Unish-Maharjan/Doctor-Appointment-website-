@@ -1,161 +1,90 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { FaPhoneAlt, FaClock, FaMapMarkerAlt, FaSearch, FaBars, FaTimes } from 'react-icons/fa'
 
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false)
+
   return (
     <>
-        
-      <div className="border-b border-gray-100 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-3 sm:px-6 md:flex-row lg:px-8">
-          <a href="#home" className="text-2xl font-extrabold tracking-tight">
-            <span style={{ color: "#161654" }}>MED</span>
-            <span style={{ color: "#3EA6E0" }}>DICAL</span>
-          </a>
+      <div className="bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-3">
+          <Link to="/home" className="text-2xl font-extrabold">
+            <span className="text-[#161654]">MED</span>
+            <span className="text-[#3EA6E0]">DICAL</span>
+          </Link>
 
-          <div className="hidden flex-wrap items-center gap-6 md:flex">
+          <div className="hidden md:flex items-center gap-6">
             <div className="flex items-center gap-2">
-              <span
-                className="flex h-9 w-9 items-center justify-center rounded-full"
-                style={{ backgroundColor: "#E7EEFC" }}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" style={{ color: "#3EA6E0" }}>
-                  <path d="M4 4l4 1 1 4-2 2c1.5 3 3.5 5 6 6l2-2 4 1 1 4c0 1-1 2-2 2-8 0-15-7-15-15 0-1 1-2 2-2z" />
-                </svg>
+              <span className="w-9 h-9 rounded-full bg-[#E7EEFC] text-[#3EA6E0] flex items-center justify-center">
+                <FaPhoneAlt size={14} />
               </span>
-              <div className="text-xs leading-tight">
-                <p className="font-semibold uppercase tracking-wide text-gray-400">
-                  Emergency
-                </p>
-                <p className="font-bold" style={{ color: "#161654" }}>
-                  (237) 681-812-255
-                </p>
+              <div className="text-xs">
+                <p className="text-gray-400 font-semibold uppercase tracking-wide">Emergency</p>
+                <p className="text-[#161654] font-bold">(237) 681-812-255</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <span
-                className="flex h-9 w-9 items-center justify-center rounded-full"
-                style={{ backgroundColor: "#E7EEFC" }}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" style={{ color: "#3EA6E0" }}>
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M12 7v5l4 2" />
-                </svg>
+              <span className="w-9 h-9 rounded-full bg-[#E7EEFC] text-[#3EA6E0] flex items-center justify-center">
+                <FaClock size={14} />
               </span>
-              <div className="text-xs leading-tight">
-                <p className="font-semibold uppercase tracking-wide text-gray-400">
-                  Work Hour
-                </p>
-                <p className="font-bold" style={{ color: "#161654" }}>
-                  09:00 - 20:00 Everyday
-                </p>
+              <div className="text-xs">
+                <p className="text-gray-400 font-semibold uppercase tracking-wide">Work Hour</p>
+                <p className="text-[#161654] font-bold">09:00 - 20:00 Everyday</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <span
-                className="flex h-9 w-9 items-center justify-center rounded-full"
-                style={{ backgroundColor: "#E7EEFC" }}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" style={{ color: "#3EA6E0" }}>
-                  <path d="M12 22s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z" />
-                  <circle cx="12" cy="10" r="2.5" />
-                </svg>
+              <span className="w-9 h-9 rounded-full bg-[#E7EEFC] text-[#3EA6E0] flex items-center justify-center">
+                <FaMapMarkerAlt size={14} />
               </span>
-              <div className="text-xs leading-tight">
-                <p className="font-semibold uppercase tracking-wide text-gray-400">
-                  Location
-                </p>
-                <p className="font-bold" style={{ color: "#161654" }}>
-                  0123 Some Place
-                </p>
+              <div className="text-xs">
+                <p className="text-gray-400 font-semibold uppercase tracking-wide">Location</p>
+                <p className="text-[#161654] font-bold">0123 Some Place</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      
-      <nav
-        className="sticky top-0 z-50 shadow-md"
-        style={{ backgroundColor: "#161654" }}
-      >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <div className="hidden items-center gap-8 text-sm font-medium text-white md:flex">
-            <Link to="/home" className="relative border-b-2 border-white pb-1">
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className="relative pb-1 text-blue-100 transition-colors hover:text-white"
-            >
-              About us
-            </Link>
-            <Link
-              to="/services"
-              className="relative pb-1 text-blue-100 transition-colors hover:text-white"
-            >
-              Services
-            </Link>
-            <Link
-              to="/doctors"
-              className="relative pb-1 text-blue-100 transition-colors hover:text-white"
-            >
-              Doctors
-            </Link>
-            <a
-              href="#news"
-              className="relative pb-1 text-blue-100 transition-colors hover:text-white"
-            >
-              News
-            </a>
-            <Link
-              to="/contact"
-              className="relative pb-1 text-blue-100 transition-colors hover:text-white"
-            >
-              Contact
-            </Link>
+      <nav className="sticky top-0 z-50 bg-[#161654] shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between relative">
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white">
+            <Link to="/home" className="border-b-2 border-white pb-1">Home</Link>
+            <Link to="/about" className="text-blue-100 hover:text-white pb-1">About us</Link>
+            <Link to="/services" className="text-blue-100 hover:text-white pb-1">Services</Link>
+            <Link to="/doctors" className="text-blue-100 hover:text-white pb-1">Doctors</Link>
+            <Link to="/news" className="text-blue-100 hover:text-white pb-1">News</Link>
+            <Link to="/contact" className="text-blue-100 hover:text-white pb-1">Contact</Link>
           </div>
 
-          <input type="checkbox" id="mobile-nav-toggle" className="peer hidden" />
-          <label
-            htmlFor="mobile-nav-toggle"
-            className="cursor-pointer text-white md:hidden"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7">
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </label>
+          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-white">
+            {menuOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
+          </button>
 
-          <div className="hidden items-center gap-5 md:flex">
-            <button className="rounded-full p-2 text-white transition-transform duration-300 hover:scale-110">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                <circle cx="11" cy="11" r="7" />
-                <path d="M21 21l-4.3-4.3" />
-              </svg>
+          <div className="hidden md:flex items-center gap-5">
+            <button className="text-white p-2 rounded-full hover:scale-110 transition">
+              <FaSearch size={16} />
             </button>
-            <button
-              className="rounded-full px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
-              style={{ backgroundColor: "#3EA6E0" }}
-            >
+            <button className="bg-[#3EA6E0] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:scale-105 hover:shadow-lg transition">
               Appointment
             </button>
           </div>
 
-          <div className="absolute left-0 top-full hidden w-full flex-col gap-4 px-4 py-5 text-sm font-medium text-white peer-checked:flex md:hidden" style={{ backgroundColor: "#1B2363" }}>
-            <a href="#home">Home</a>
-            <a href="#about">About us</a>
-            <a href="#services">Services</a>
-            <a href="#doctors">Doctors</a>
-            <a href="#news">News</a>
-            <a href="#contact">Contact</a>
-            <button
-              className="mt-2 w-fit rounded-full px-6 py-2.5 text-sm font-semibold text-white"
-              style={{ backgroundColor: "#3EA6E0" }}
-            >
-              Appointment
-            </button>
-          </div>
+          {menuOpen && (
+            <div className="absolute top-full left-0 w-full bg-[#1B2363] flex flex-col gap-4 px-4 py-5 text-sm font-medium text-white md:hidden">
+              <Link to="/home" onClick={() => setMenuOpen(false)}>Home</Link>
+              <Link to="/about" onClick={() => setMenuOpen(false)}>About us</Link>
+              <Link to="/services" onClick={() => setMenuOpen(false)}>Services</Link>
+              <Link to="/doctors" onClick={() => setMenuOpen(false)}>Doctors</Link>
+              <Link to="/news" onClick={() => setMenuOpen(false)}>News</Link>
+              <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+              <button className="bg-[#3EA6E0] text-white text-sm font-semibold px-6 py-2.5 rounded-full w-fit mt-2">
+                Appointment
+              </button>
+            </div>
+          )}
         </div>
       </nav>
     </>
