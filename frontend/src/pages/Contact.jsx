@@ -6,7 +6,7 @@ import News from "../components/News";
 function Contact() {
   return (
     <>
-    <Banner title="Contact Us" />
+    <Banner title="Contact Us" image="contact.jpg" />
 
     <section className="px-6 py-16 max-w-6xl mx-auto">
       {/* map placeholder */}

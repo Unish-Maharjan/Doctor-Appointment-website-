@@ -9,7 +9,7 @@ export default function About() {
     <div>
 
       {/* Banner */}
-      <Banner title="About Us" />
+      <Banner title="About Us" image="Aboutus.png" />
 
       {/* Welcome section */}
       <section className="px-6 md:px-20 py-16 flex flex-col md:flex-row gap-10 items-center">

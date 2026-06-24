@@ -13,51 +13,45 @@ export default function Home() {
       {/*HERO*/}
       <section
         id="home"
-        className="relative overflow-hidden bg-[#E7EEFC]"
+        className="relative overflow-hidden bg-[url('/home.jpg')] bg-cover bg-center bg-no-repeat"
       >
-        <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[#dde9fc] opacity-60" />
-
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-20 lg:grid-cols-2 lg:px-8">
+        <div className="absolute inset-0 bg-white/30"></div>
+  
+        <div className="anim-float absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[#3EA6E0]/30 blur-3xl"></div>
+  
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-20 lg:grid-cols-2 lg:px-8">
           {/* Left Content */}
-          <div className="text-center lg:text-left">
+          <div className="anim-fadeInUp text-center lg:text-left">
             <p className="mb-3 text-sm font-bold uppercase tracking-widest text-[#3EA6E0]">
               Caring For Life
             </p>
-
+  
             <h1 className="text-4xl font-extrabold leading-tight text-[#161654] sm:text-5xl md:text-6xl">
               Leading the Way in Medical Excellence
             </h1>
-
+  
             <p className="mt-5 text-gray-600">
-              Providing quality healthcare with experienced doctors and modern
-              medical facilities.
+              Providing quality healthcare with experienced doctors and modern medical facilities.
             </p>
-
+  
             <button className="mt-8 rounded-full bg-[#dde9fc] px-8 py-3 font-semibold text-[#161654] transition hover:scale-105">
               Our Services
             </button>
           </div>
-
-          {/* Right Image */}
-            <div className="flex justify-center">
-              <div className="flex h-80 w-full max-w-md items-center justify-center rounded-3xl bg-gray-300 shadow-xl sm:h-96">
-                <FaUserMd size={80} className="text-gray-400" />
-              </div>
-            </div>
         </div>
-
+  
         {/* CTA Buttons */}
-        <div className="mx-auto grid max-w-6xl gap-4 px-4 pb-14 sm:grid-cols-3 lg:px-8">
+        <div className="anim-fadeInUp relative mx-auto grid max-w-6xl gap-4 px-4 pb-14 [animation-delay:200ms] sm:grid-cols-3 lg:px-8">
           <button className="flex items-center justify-center gap-3 rounded-xl bg-[#161654] px-6 py-5 font-semibold text-white shadow-md transition hover:-translate-y-1 hover:shadow-xl">
             <FaCalendarAlt size={18} />
             Book Appointment
           </button>
-
+  
           <button className="flex items-center justify-center gap-3 rounded-xl bg-[#dde9fc] px-6 py-5 font-semibold text-[#161654] shadow-md transition hover:-translate-y-1 hover:shadow-xl">
             <FaUserMd size={18} />
             Find Doctors
           </button>
-
+  
           <button className="flex items-center justify-center gap-3 rounded-xl bg-[#3EA6E0] px-6 py-5 font-semibold text-white shadow-md transition hover:-translate-y-1 hover:shadow-xl">
             <FaCreditCard size={18} />
             Insurance & Billing

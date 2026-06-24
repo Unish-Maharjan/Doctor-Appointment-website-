@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaPhoneAlt, FaClock, FaMapMarkerAlt, FaSearch, FaBars, FaTimes } from 'react-icons/fa'
 
 const Header = () => {
+
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
@@ -21,7 +22,7 @@ const Header = () => {
               </span>
               <div className="text-xs">
                 <p className="text-gray-400 font-semibold uppercase tracking-wide">Emergency</p>
-                <p className="text-[#161654] font-bold">(237) 681-812-255</p>
+                <p className="text-[#161654] font-bold">(977) 9841399247</p>
               </div>
             </div>
 
@@ -41,7 +42,7 @@ const Header = () => {
               </span>
               <div className="text-xs">
                 <p className="text-gray-400 font-semibold uppercase tracking-wide">Location</p>
-                <p className="text-[#161654] font-bold">0123 Some Place</p>
+                <p className="text-[#161654] font-bold">Kathmandu, Nepal</p>
               </div>
             </div>
           </div>
@@ -67,9 +68,11 @@ const Header = () => {
             <button className="text-white p-2 rounded-full hover:scale-110 transition">
               <FaSearch size={16} />
             </button>
+            <Link to="/appointment">
             <button className="bg-[#3EA6E0] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:scale-105 hover:shadow-lg transition">
               Appointment
             </button>
+            </Link>
           </div>
 
           {menuOpen && (

@@ -8,7 +8,7 @@ import { FaQuoteRight } from 'react-icons/fa'
 const DoctorsPage = () => {
   return (
     <>
-        <Banner title="Doctors" />
+        <Banner title="Doctors" image="Aboutus.png" />
 
         <Doctors/>
 
