@@ -1,11 +1,24 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { productApi } from './services/product'
-// adjust path
+import { configureStore } from "@reduxjs/toolkit";
+
+
+
+import { authApi } from "./services/authApi";
+import { doctorApi } from "./services/doctorApi";
+import { newsApi } from "./services/newsApi";
+import { appointmentApi } from "./services/appointmentApi";
 
 export const store = configureStore({
   reducer: {
-    [productApi.reducerPath]: productApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
+    [doctorApi.reducerPath]: doctorApi.reducer,
+    [newsApi.reducerPath]: newsApi.reducer,
+    [appointmentApi.reducerPath]: appointmentApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(productApi.middleware),
-})
+    getDefaultMiddleware().concat(
+      authApi.middleware,
+      doctorApi.middleware,
+      newsApi.middleware,
+      appointmentApi.middleware
+    ),
+});

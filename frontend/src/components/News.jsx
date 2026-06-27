@@ -1,7 +1,10 @@
 import React from 'react'
 import { FaEye, FaHeart } from "react-icons/fa";
+import { useGetNewsQuery } from '../services/newsApi'
 
 const News = () => {
+  const { data: news, error, isLoading } = useGetNewsQuery();
+
   return (
     <>
     <section id="news" className="bg-[#E7EEFC] px-4 py-20 sm:px-6 lg:px-8">
@@ -15,12 +18,13 @@ const News = () => {
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
         {/* News 1 */}
+        {news?.slice(0, 4).map((article, index) => (
         <div className="flex gap-4 rounded-2xl bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
             <div className="h-20 w-24 shrink-0 rounded-xl bg-gray-300"></div>
             <div>
-            <p className="text-xs font-medium text-[#3EA6E0]">Monday, 05 September 2021 | By Author</p>
+            <p className="text-xs font-medium text-[#3EA6E0]">{article.date} | By {article.author}</p>
             <p className="mt-1 text-sm font-bold text-[#161654]">
-                This Article's Title Goes Here, but not too long.
+                {article.title}
             </p>
             <div className="mt-2 flex items-center gap-4 text-xs text-gray-400">
                 <span className="flex items-center gap-1"><FaEye size={12} /> 68</span>
@@ -28,51 +32,7 @@ const News = () => {
             </div>
             </div>
         </div>
-
-        {/* News 2 */}
-        <div className="flex gap-4 rounded-2xl bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-            <div className="h-20 w-24 shrink-0 rounded-xl bg-gray-300"></div>
-            <div>
-            <p className="text-xs font-medium text-[#3EA6E0]">Monday, 05 September 2021 | By Author</p>
-            <p className="mt-1 text-sm font-bold text-[#161654]">
-                This Article's Title Goes Here, but not too long.
-            </p>
-            <div className="mt-2 flex items-center gap-4 text-xs text-gray-400">
-                <span className="flex items-center gap-1"><FaEye size={12} /> 68</span>
-                <span className="flex items-center gap-1"><FaHeart size={12} /> 86</span>
-            </div>
-            </div>
-        </div>
-
-        {/* News 3 */}
-        <div className="flex gap-4 rounded-2xl bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-            <div className="h-20 w-24 shrink-0 rounded-xl bg-gray-300"></div>
-            <div>
-            <p className="text-xs font-medium text-[#3EA6E0]">Monday, 05 September 2021 | By Author</p>
-            <p className="mt-1 text-sm font-bold text-[#161654]">
-                This Article's Title Goes Here, but not too long.
-            </p>
-            <div className="mt-2 flex items-center gap-4 text-xs text-gray-400">
-                <span className="flex items-center gap-1"><FaEye size={12} /> 68</span>
-                <span className="flex items-center gap-1"><FaHeart size={12} /> 86</span>
-            </div>
-            </div>
-        </div>
-
-        {/* News 4 */}
-        <div className="flex gap-4 rounded-2xl bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-            <div className="h-20 w-24 flex-shrink-0 rounded-xl bg-gray-300"></div>
-            <div>
-            <p className="text-xs font-medium text-[#3EA6E0]">Monday, 05 September 2021 | By Author</p>
-            <p className="mt-1 text-sm font-bold text-[#161654]">
-                This Article's Title Goes Here, but not too long.
-            </p>
-            <div className="mt-2 flex items-center gap-4 text-xs text-gray-400">
-                <span className="flex items-center gap-1"><FaEye size={12} /> 68</span>
-                <span className="flex items-center gap-1"><FaHeart size={12} /> 86</span>
-            </div>
-            </div>
-        </div>
+        ))} 
         </div>
 
         <div className="mt-8 flex justify-center gap-2">

@@ -80,7 +80,7 @@ function Appointment() {
         </div>
 
         {/* Right - Schedule */}
-        <div className="anim-fadeInUp w-full rounded-2xl bg-[#1B2363] px-10 py-12 [animation-delay:200ms] lg:w-[420px]">
+        <div className="anim-fadeInUp w-full rounded-2xl bg-[#1B2363] px-10 py-12 [animation-delay:200ms] lg:w-105">
           <h2 className="font-serif text-4xl font-bold text-[#dde9fc]">Schedule hours</h2>
 
           <div className="mt-8 flex flex-col">
@@ -124,12 +124,12 @@ function Appointment() {
           <div className="mt-8 h-px w-3/5 bg-white/20"></div>
 
           <div className="mt-8 flex items-center gap-4">
-            <div className="anim-float flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full border border-white/30">
+            <div className="anim-float flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/30">
               <FaPhoneAlt className="text-white" />
             </div>
             <div>
               <p className="text-lg font-bold text-white">Emergency</p>
-              <p className="text-white/80">(237) 681-812-255</p>
+              <p className="text-white/80">(977) 9841-399247</p>
             </div>
           </div>
         </div>

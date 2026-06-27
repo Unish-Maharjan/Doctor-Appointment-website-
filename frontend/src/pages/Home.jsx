@@ -5,14 +5,9 @@ import Header from "../components/Header";
 import News from "../components/News";
 import { FaStethoscope, FaHeartbeat, FaDna, FaTint, FaCheckCircle,
    FaChevronDown, FaEye, FaHeart, FaCalendarAlt, FaUserMd, FaCreditCard, FaArrowRight } from "react-icons/fa";
-import { productApi } from "../services/product";
 
 export default function Home() {
 
-  const { data, error, isLoading } = productApi.useGetProductByNameQuery();
-
-  console.log("Data:", data);
- 
 
   return (
     <div className="w-full overflow-x-hidden bg-white font-sans">  

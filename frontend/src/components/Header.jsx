@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FaPhoneAlt, FaClock, FaMapMarkerAlt, FaSearch, FaBars, FaTimes } from 'react-icons/fa'
+import { FaPhoneAlt, FaClock, FaMapMarkerAlt, FaSearch, FaBars, FaTimes, FaUser } from 'react-icons/fa'
 
 const Header = () => {
 
@@ -64,16 +64,21 @@ const Header = () => {
             {menuOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
           </button>
 
-          <div className="hidden md:flex items-center gap-5">
-            <button className="text-white p-2 rounded-full hover:scale-110 transition">
-              <FaSearch size={16} />
-            </button>
+          <div className="hidden md:flex items-center gap-3">
             <Link to="/appointment">
-            <button className="bg-[#3EA6E0] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:scale-105 hover:shadow-lg transition">
+            <button className="bg-[#3EA6E0] text-white text-sm font-semibold px-6 py-2.5 rounded-full 
+            hover:scale-105 hover:shadow-lg transition">
               Appointment
             </button>
             </Link>
+            <Link to="/signin">
+            <button className=" text-white text-sm font-semibold px-6 py-2.5 rounded-full 
+            hover:scale-105 hover:shadow-lg transition text-center">
+              <FaUser size={22}/>
+            </button>
+            </Link>
           </div>
+  
 
           {menuOpen && (
             <div className="absolute top-full left-0 w-full bg-[#1B2363] flex flex-col gap-4 px-4 py-5 text-sm font-medium text-white md:hidden">

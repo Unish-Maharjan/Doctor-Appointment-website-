@@ -1,9 +1,32 @@
 import { FaSearch, FaCalendarAlt, FaUser, FaEye, FaHeart, FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import Banner from "../components/Banner";
 import Contactsection from "../components/Contactsection";
+import { useGetNewsQuery } from "../services/newsApi";
+import { useState } from "react";
 
 function NewsPage() {
+    const { data: newsData, error, isLoading } = useGetNewsQuery();
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 3;
+    const totalPages = Math.ceil((newsData?.length || 0) / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const paginatedNews = newsData?.slice(startIndex, startIndex + itemsPerPage);
+
+    function goToPrevious() {
+      if (currentPage > 1) setCurrentPage(currentPage - 1);
+    }
+
+    function goToNext() {
+      if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    }
+
+    function goToPage(page) {
+      setCurrentPage(page);
+    }
+
+    console.log("News data:", newsData);
   return (
+
     <>    
     
     <Banner title="News" image="News.jpg"/>
@@ -13,101 +36,67 @@ function NewsPage() {
       <div className="max-w-300 mx-auto flex flex-col gap-12 lg:flex-row">
 
         {/* Main Content */}
-        <div className="flex flex-1 flex-col gap-14">
-
-          {/* Article 1 */}
-          <div className="anim-fadeInUp [animation-delay:0ms]">
-            <div className="h-105 w-full overflow-hidden rounded-2xl bg-gray-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"></div>
-            <div className="mt-5 flex flex-wrap items-center gap-5 text-sm text-gray-500">
-              <span className="flex items-center gap-2"><FaCalendarAlt className="text-[#3EA6E0]" /> Monday 05, September 2021</span>
-              <span className="flex items-center gap-2"><FaUser className="text-[#3EA6E0]" /> By Author</span>
-              <span className="flex items-center gap-2"><FaEye className="text-gray-400" /> 68</span>
-              <span className="flex items-center gap-2"><FaHeart className="text-pink-500" /> 86</span>
-            </div>
-            <h2 className="mt-3 font-serif text-2xl font-bold text-[#161654] md:text-3xl">A passion for putting patients first</h2>
-            <p className="mt-3 leading-relaxed text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque placerat scelerisque tortor ornare ornare. Quisque placerat scelerisque tortor ornare ornare Convallis felis vitae tortor augue. Velit nascetur proin massa in. Consequat faucibus porttitor enim et....
-            </p>
-            <button className="mt-5 flex items-center gap-2 rounded-full bg-[#dde9fc] px-6 py-3 font-semibold text-[#161654] transition-colors duration-300 hover:bg-[#3EA6E0] hover:text-white">
-              Read More <FaArrowRight />
-            </button>
+         <div className="flex flex-1 flex-col gap-14">
+          <div className="flex flex-col gap-10">
+            {paginatedNews?.map((article, index) => (
+              <div key={article._id || index} className={`anim-fadeInUp [animation-delay:${index * 150}ms]`}>
+                <div className="h-105 w-full overflow-hidden rounded-2xl bg-gray-200 
+                transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  <img src={article.image} alt={article.title} className="h-full w-full object-cover" />
+                </div>
+                <div className="mt-5 flex flex-wrap items-center gap-5 text-sm text-gray-500">
+                  <span className="flex items-center gap-2"><FaCalendarAlt className="text-[#3EA6E0]" /> {article.date}</span>
+                  <span className="flex items-center gap-2"><FaUser className="text-[#3EA6E0]" /> By {article.author}</span>
+                  <span className="flex items-center gap-2"><FaEye className="text-gray-400" /> 68</span>
+                  <span className="flex items-center gap-2"><FaHeart className="text-pink-500" /> 86</span>
+                </div>
+                <h2 className="mt-3 font-serif text-2xl font-bold text-[#161654] md:text-3xl">{article.title}</h2>
+                <p className="mt-3 leading-relaxed text-gray-500">
+                  {article.content}
+                </p>
+                <button className="mt-5 flex items-center gap-2 rounded-full bg-[#dde9fc] px-6 py-3 font-semibold text-[#161654] transition-colors duration-300 hover:bg-[#3EA6E0] hover:text-white">
+                  Read More <FaArrowRight />
+                </button>
+              </div>
+            ))}
           </div>
+           {/* Pagination */}
+      <div className="anim-fadeIn flex items-center justify-between border-t border-gray-100 pt-8">
+        <button
+          onClick={goToPrevious}
+          disabled={currentPage === 1}
+          className={`flex items-center gap-2 transition-colors duration-300 ${
+            currentPage === 1 ? "cursor-not-allowed text-gray-300" : "text-[#161654] hover:text-[#3EA6E0]"
+          }`}
+        >
+          <FaArrowLeft /> Previous Page
+        </button>
 
-          {/* Article 2 */}
-          <div className="anim-fadeInUp [animation-delay:150ms]">
-            <div className="h-105 w-full overflow-hidden rounded-2xl bg-gray-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"></div>
-            <div className="mt-5 flex flex-wrap items-center gap-5 text-sm text-gray-500">
-              <span className="flex items-center gap-2"><FaCalendarAlt className="text-[#3EA6E0]" /> Monday 05, September 2021</span>
-              <span className="flex items-center gap-2"><FaUser className="text-[#3EA6E0]" /> By Author</span>
-              <span className="flex items-center gap-2"><FaEye className="text-gray-400" /> 68</span>
-              <span className="flex items-center gap-2"><FaHeart className="text-pink-500" /> 86</span>
-            </div>
-            <h2 className="mt-3 font-serif text-2xl font-bold text-[#161654] md:text-3xl">A passion for putting patients first</h2>
-            <p className="mt-3 leading-relaxed text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque placerat scelerisque tortor ornare ornare. Quisque placerat scelerisque tortor ornare ornare Convallis felis vitae tortor augue. Velit nascetur proin massa in. Consequat faucibus porttitor enim et....
-            </p>
-            <button className="mt-5 flex items-center gap-2 rounded-full bg-[#dde9fc] px-6 py-3 font-semibold text-[#161654] transition-colors duration-300 hover:bg-[#3EA6E0] hover:text-white">
-              Read More <FaArrowRight />
-            </button>
-          </div>
-
-          {/* Article 3 */}
-          <div className="anim-fadeInUp [animation-delay:300ms]">
-            <div className="h-105 w-full overflow-hidden rounded-2xl bg-gray-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"></div>
-            <div className="mt-5 flex flex-wrap items-center gap-5 text-sm text-gray-500">
-              <span className="flex items-center gap-2"><FaCalendarAlt className="text-[#3EA6E0]" /> Monday 05, September 2021</span>
-              <span className="flex items-center gap-2"><FaUser className="text-[#3EA6E0]" /> By Author</span>
-              <span className="flex items-center gap-2"><FaEye className="text-gray-400" /> 68</span>
-              <span className="flex items-center gap-2"><FaHeart className="text-pink-500" /> 86</span>
-            </div>
-            <h2 className="mt-3 font-serif text-2xl font-bold text-[#161654] md:text-3xl">A passion for putting patients first</h2>
-            <p className="mt-3 leading-relaxed text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque placerat scelerisque tortor ornare ornare. Quisque placerat scelerisque tortor ornare ornare Convallis felis vitae tortor augue. Velit nascetur proin massa in. Consequat faucibus porttitor enim et....
-            </p>
-            <button className="mt-5 flex items-center gap-2 rounded-full bg-[#dde9fc] px-6 py-3 font-semibold text-[#161654] transition-colors duration-300 hover:bg-[#3EA6E0] hover:text-white">
-              Read More <FaArrowRight />
-            </button>
-          </div>
-
-          {/* Article 4 */}
-          <div className="anim-fadeInUp [animation-delay:450ms]">
-            <div className="h-105 w-full overflow-hidden rounded-2xl bg-gray-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"></div>
-            <div className="mt-5 flex flex-wrap items-center gap-5 text-sm text-gray-500">
-              <span className="flex items-center gap-2"><FaCalendarAlt className="text-[#3EA6E0]" /> Monday 05, September 2021</span>
-              <span className="flex items-center gap-2"><FaUser className="text-[#3EA6E0]" /> By Author</span>
-              <span className="flex items-center gap-2"><FaEye className="text-gray-400" /> 68</span>
-              <span className="flex items-center gap-2"><FaHeart className="text-pink-500" /> 86</span>
-            </div>
-            <h2 className="mt-3 font-serif text-2xl font-bold text-[#161654] md:text-3xl">A passion for putting patients first</h2>
-            <p className="mt-3 leading-relaxed text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque placerat scelerisque tortor ornare ornare. Quisque placerat scelerisque tortor ornare ornare Convallis felis vitae tortor augue. Velit nascetur proin massa in. Consequat faucibus porttitor enim et....
-            </p>
-            <button className="mt-5 flex items-center gap-2 rounded-full bg-[#dde9fc] px-6 py-3 font-semibold text-[#161654] transition-colors duration-300 hover:bg-[#3EA6E0] hover:text-white">
-              Read More <FaArrowRight />
-            </button>
-          </div>
-
-          {/* Pagination */}
-          <div className="anim-fadeIn flex items-center justify-between border-t border-gray-100 pt-8">
-            <span className="flex items-center gap-2 text-gray-300">
-              <FaArrowLeft /> Previous Page
+        <div className="flex items-center gap-2 font-medium text-[#161654]">
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <span
+              key={i}
+              onClick={() => goToPage(i + 1)}
+              className={`cursor-pointer ${
+                currentPage === i + 1 ? "font-bold text-[#3EA6E0]" : "hover:text-[#3EA6E0]"
+              }`}
+            >
+              {i + 1}
             </span>
-            <div className="flex items-center gap-2 font-medium text-[#161654]">
-              <span className="font-bold text-[#3EA6E0]">1</span>
-              <span>-</span>
-              <span>2</span>
-              <span>-</span>
-              <span>3</span>
-              <span>-</span>
-              <span>4</span>
-              <span>-</span>
-              <span>5</span>
-            </div>
-            <button className="flex items-center gap-2 font-medium text-[#3EA6E0] transition-all duration-300 hover:gap-3">
-              Next Page <FaArrowRight />
-            </button>
-          </div>
+          ))}
         </div>
+
+        <button
+          onClick={goToNext}
+          disabled={currentPage === totalPages}
+          className={`flex items-center gap-2 font-medium transition-all duration-300 ${
+            currentPage === totalPages ? "cursor-not-allowed text-gray-300" : "text-[#3EA6E0] hover:gap-3"
+          }`}
+        >
+          Next Page <FaArrowRight />
+        </button>
+      </div>
+          </div>
 
         {/* Sidebar */}
         <div className="flex w-full flex-col gap-8 lg:w-[320px]">
@@ -125,49 +114,20 @@ function NewsPage() {
           </div>
 
           {/* Recent Posts */}
+          
           <div className="anim-fadeIn rounded-xl border border-gray-100 p-6 [animation-delay:150ms]">
             <h3 className="mb-5 font-serif text-2xl font-bold text-[#161654]">Recent Posts</h3>
-
+          {newsData?.slice(0, 3).map((article, index) => (
             <div className="flex gap-3 border-b border-gray-100 pb-4">
               <div className="h-14 w-14 shrink-0 rounded-lg bg-gray-200"></div>
               <div>
-                <p className="mb-1 text-xs font-medium text-[#3EA6E0]">Monday 05, September 2021</p>
-                <p className="text-sm font-semibold leading-snug text-[#161654]">This Article's Title goes Here, but not too long.</p>
+                <p className="mb-1 text-xs font-medium text-[#3EA6E0]">{article.date}</p>
+                <p className="text-sm font-semibold leading-snug text-[#161654]">{article.title}</p>
               </div>
             </div>
-
-            <div className="flex gap-3 border-b border-gray-100 py-4">
-              <div className="h-14 w-14 shrink-0 rounded-lg bg-gray-200"></div>
-              <div>
-                <p className="mb-1 text-xs font-medium text-[#3EA6E0]">Monday 05, September 2021</p>
-                <p className="text-sm font-semibold leading-snug text-[#161654]">This Article's Title goes Here, but not too long.</p>
-              </div>
-            </div>
-
-            <div className="flex gap-3 border-b border-gray-100 py-4">
-              <div className="h-14 w-14 shrink-0 rounded-lg bg-gray-200"></div>
-              <div>
-                <p className="mb-1 text-xs font-medium text-[#3EA6E0]">Monday 05, September 2021</p>
-                <p className="text-sm font-semibold leading-snug text-[#161654]">This Article's Title goes Here, but not too long.</p>
-              </div>
-            </div>
-
-            <div className="flex gap-3 border-b border-gray-100 py-4">
-              <div className="h-14 w-14 shrink-0 rounded-lg bg-gray-200"></div>
-              <div>
-                <p className="mb-1 text-xs font-medium text-[#3EA6E0]">Monday 05, September 2021</p>
-                <p className="text-sm font-semibold leading-snug text-[#161654]">This Article's Title goes Here, but not too long.</p>
-              </div>
-            </div>
-
-            <div className="flex gap-3 pt-4">
-              <div className="h-14 w-14 shrink-0 rounded-lg bg-gray-200"></div>
-              <div>
-                <p className="mb-1 text-xs font-medium text-[#3EA6E0]">Monday 05, September 2021</p>
-                <p className="text-sm font-semibold leading-snug text-[#161654]">This Article's Title goes Here, but not too long.</p>
-              </div>
-            </div>
+             ))}
           </div>
+         
 
           {/* Categories */}
           <div className="anim-fadeIn rounded-xl border border-gray-100 p-6 [animation-delay:300ms]">
