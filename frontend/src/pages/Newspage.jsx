@@ -5,7 +5,7 @@ import { useGetNewsQuery } from "../services/newsApi";
 import { useState } from "react";
 
 function NewsPage() {
-    const { data: newsData, error, isLoading } = useGetNewsQuery();
+    const { data: newsData, isLoading } = useGetNewsQuery();
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 3;
     const totalPages = Math.ceil((newsData?.length || 0) / itemsPerPage);
@@ -36,6 +36,51 @@ function NewsPage() {
       <div className="max-w-300 mx-auto flex flex-col gap-12 lg:flex-row">
 
         {/* Main Content */}
+        {isLoading ? (
+            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="rounded-2xl overflow-hidden shadow-md animate-pulse">
+                <div className="h-64 bg-gray-300"></div>
+                <div className="px-5 py-4 bg-[#E7EEFC] space-y-2">
+                  <div className="h-4 w-2/3 bg-gray-300 rounded"></div>
+                  <div className="h-4 w-1/2 bg-gray-300 rounded"></div>
+                  <div className="mt-3 flex gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                    <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                    <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                  </div>
+                </div>
+                <div className="w-full h-11 bg-gray-300"></div>
+              </div>
+
+              <div className="rounded-2xl overflow-hidden shadow-md animate-pulse">
+                <div className="h-64 bg-gray-300"></div>
+                <div className="px-5 py-4 bg-[#E7EEFC] space-y-2">
+                  <div className="h-4 w-2/3 bg-gray-300 rounded"></div>
+                  <div className="h-4 w-1/2 bg-gray-300 rounded"></div>
+                  <div className="mt-3 flex gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                    <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                    <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                  </div>
+                </div>
+                <div className="w-full h-11 bg-gray-300"></div>
+              </div>
+
+              <div className="rounded-2xl overflow-hidden shadow-md animate-pulse">
+                <div className="h-64 bg-gray-300"></div>
+                <div className="px-5 py-4 bg-[#E7EEFC] space-y-2">
+                  <div className="h-4 w-2/3 bg-gray-300 rounded"></div>
+                  <div className="h-4 w-1/2 bg-gray-300 rounded"></div>
+                  <div className="mt-3 flex gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                    <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                    <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                  </div>
+                </div>
+                <div className="w-full h-11 bg-gray-300"></div>
+              </div>
+            </div>
+          ) : (
          <div className="flex flex-1 flex-col gap-14">
           <div className="flex flex-col gap-10">
             {paginatedNews?.map((article, index) => (
@@ -97,6 +142,7 @@ function NewsPage() {
         </button>
       </div>
           </div>
+          )}
 
         {/* Sidebar */}
         <div className="flex w-full flex-col gap-8 lg:w-[320px]">
@@ -117,7 +163,7 @@ function NewsPage() {
           
           <div className="anim-fadeIn rounded-xl border border-gray-100 p-6 [animation-delay:150ms]">
             <h3 className="mb-5 font-serif text-2xl font-bold text-[#161654]">Recent Posts</h3>
-          {newsData?.slice(0, 3).map((article, index) => (
+          {newsData?.slice(0, 3).map((article) => (
             <div className="flex gap-3 border-b border-gray-100 pb-4">
               <div className="h-14 w-14 shrink-0 rounded-lg bg-gray-200"></div>
               <div>

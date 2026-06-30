@@ -1,4 +1,3 @@
-import React from 'react'
 import { FaLink, FaArrowRight } from "react-icons/fa";
 import Contactsection from '../components/Contactsection';
 import Banner from '../components/Banner';
