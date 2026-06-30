@@ -6,8 +6,8 @@ import News from "../components/News";
 import { FaStethoscope, FaHeartbeat, FaDna, FaTint, FaCheckCircle,
    FaChevronDown, FaEye, FaHeart, FaCalendarAlt, FaUserMd, FaCreditCard, FaArrowRight } from "react-icons/fa";
 
-export default function Home() {
 
+export default function Home() {
 
   return (
     <div className="w-full overflow-x-hidden bg-white font-sans">  

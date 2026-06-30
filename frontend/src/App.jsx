@@ -9,6 +9,9 @@ import Contact from "./pages/Contact";
 import NewsPage from "./pages/Newspage";
 import Appointment from "./pages/Appointment";
 import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import AdminDashboard from "./pages/Admindashboard";
+import AdminRoute from "./components/AdminRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -45,9 +48,21 @@ function App() {
       element: <><Header/><Appointment/><Footer/></>,
     },
     {
-      path: "/signin",
+      path: "/signup",
       element: <><Header/><Signup/><Footer/></>,
     },
+    {
+      path: "/login",
+      element: <><Header/><Login/><Footer/></>,
+    },
+    {
+      path: "/dashboard",
+      element: (
+        <AdminRoute>
+          <AdminDashboard/>
+        </AdminRoute>
+      ),
+    }
   ]);
 
   return (
