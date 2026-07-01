@@ -3,7 +3,7 @@ import {
   useUpdateAppointmentStatusMutation,
 } from "../services/appointmentApi";
 
-const AdminAppointments = () => {
+const Adminappointments = () => {
   const { data, isLoading, isError } = useGetAllAppointmentsQuery();
   const appointments = data || [];
 
@@ -18,7 +18,7 @@ const AdminAppointments = () => {
   }
 
   if (isError) {
-    return <p className="text-red-500">Error</p>;
+    return <p className="text-red-500">Could not load appointments. Check your backend is running.</p>;
   }
 
   if (appointments.length === 0) {
@@ -44,8 +44,15 @@ const AdminAppointments = () => {
         <tbody>
           {appointments.map((appointment) => (
             <tr key={appointment._id} className="border-b border-[#E7EEFC] last:border-0">
-              <td className="px-6 py-4 font-medium text-[#161654]">{appointment.patientName}</td>
-              <td className="px-6 py-4 text-gray-600">{appointment.doctorName}</td>
+              <td className="px-6 py-4">
+                <div className="font-medium text-[#161654]">
+                  {appointment.patient?.name || "Unknown patient"}
+                </div>
+                <div className="text-xs text-gray-400">{appointment.patient?.email}</div>
+              </td>
+              <td className="px-6 py-4 text-gray-600">
+                {appointment.doctor?.name ? `Dr. ${appointment.doctor.name}` : "Unknown doctor"}
+              </td>
               <td className="px-6 py-4 text-gray-600">{appointment.date}</td>
               <td className="px-6 py-4 text-gray-600">{appointment.time}</td>
               <td className="px-6 py-4">
@@ -54,9 +61,9 @@ const AdminAppointments = () => {
                   onChange={(e) => handleStatusChange(appointment._id, e.target.value)}
                   className="px-3 py-2 rounded-lg border border-[#dde9fc] bg-white text-sm"
                 >
-                  <option value="Pending">Pending</option>
-                  <option value="Confirmed">Confirmed</option>
-                  <option value="Cancelled">Cancelled</option>
+                  <option value="pending">Pending</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="cancelled">Cancelled</option>
                 </select>
               </td>
             </tr>
@@ -67,4 +74,4 @@ const AdminAppointments = () => {
   );
 };
 
-export default AdminAppointments;
+export default Adminappointments;

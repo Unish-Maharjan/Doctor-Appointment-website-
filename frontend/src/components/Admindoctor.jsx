@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { FaPlus, FaTrash, FaEdit, FaTimes } from "react-icons/fa";
 
 import {
@@ -153,7 +154,7 @@ const AdminDoctors = () => {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border z-100 border-[#dde9fc] focus:outline-none focus:border-[#3EA6E0]"
+              className="w-full px-4 py-3 rounded-xl border border-[#dde9fc] focus:outline-none focus:border-[#3EA6E0]"
             />
           </Field>
 
@@ -162,7 +163,7 @@ const AdminDoctors = () => {
               value={specialization}
               onChange={(e) => setSpecialization(e.target.value)}
               placeholder=""
-              className="w-full px-4 py-3 rounded-xl border z-100 border-[#dde9fc] focus:outline-none focus:border-[#3EA6E0]"
+              className="w-full px-4 py-3 rounded-xl border border-[#dde9fc] focus:outline-none focus:border-[#3EA6E0]"
             />
           </Field>
 
@@ -171,7 +172,7 @@ const AdminDoctors = () => {
               value={photo}
               onChange={(e) => setPhoto(e.target.value)}
               placeholder=""
-              className="w-full px-4 py-3 rounded-xl border z-100 border-[#dde9fc] focus:outline-none focus:border-[#3EA6E0]"
+              className="w-full px-4 py-3 rounded-xl border border-[#dde9fc] focus:outline-none focus:border-[#3EA6E0]"
             />
           </Field>
 
@@ -180,7 +181,7 @@ const AdminDoctors = () => {
               value={bio}
               onChange={(e) => setBio(e.target.value)}
               rows={3}
-              className="w-full px-4 py-3 rounded-xl border z-100 border-[#dde9fc] focus:outline-none focus:border-[#3EA6E0] resize-none"
+              className="w-full px-4 py-3 rounded-xl border border-[#dde9fc] focus:outline-none focus:border-[#3EA6E0] resize-none"
             />
           </Field>
 
@@ -189,7 +190,7 @@ const AdminDoctors = () => {
               value={availableDays}
               onChange={(e) => setAvailableDays(e.target.value)}
               placeholder="Monday, Wednesday, Friday"
-              className="w-full px-4 py-3 rounded-xl border z-100 border-[#dde9fc] focus:outline-none focus:border-[#3EA6E0]"
+              className="w-full px-4 py-3 rounded-xl border border-[#dde9fc] focus:outline-none focus:border-[#3EA6E0]"
             />
           </Field>
 
@@ -198,7 +199,7 @@ const AdminDoctors = () => {
               value={availableTime}
               onChange={(e) => setAvailableTime(e.target.value)}
               placeholder="9:00 AM - 5:00 PM"
-              className="w-full px-4 py-3 rounded-xl border z-100 border-[#dde9fc] focus:outline-none focus:border-[#3EA6E0]"
+              className="w-full px-4 py-3 rounded-xl border border-[#dde9fc] focus:outline-none focus:border-[#3EA6E0]"
             />
           </Field>
 
@@ -214,8 +215,13 @@ const AdminDoctors = () => {
 // delete this section and import them instead.
 
 function Modal({ title, onClose, children }) {
-  return (
-    <div className="fixed inset-0 bg-[#161654]/60 flex items-center justify-center p-4 z-50 anim-fadeIn">
+  // Rendered via portal directly into <body> so it sits above the header
+  // and any other component regardless of z-index/overflow set on parents.
+  return createPortal(
+    <div
+      className="fixed inset-0 bg-[#161654]/60 flex items-center justify-center p-4 anim-fadeIn"
+      style={{ zIndex: 2147483647 }}
+    >
       <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 anim-fadeInUp">
         <div className="flex justify-between items-center mb-5">
           <h3 className="text-lg font-bold text-[#161654]">{title}</h3>
@@ -225,7 +231,8 @@ function Modal({ title, onClose, children }) {
         </div>
         <div className="space-y-4">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
