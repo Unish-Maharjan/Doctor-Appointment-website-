@@ -1,24 +1,26 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { FaChevronDown, FaPhoneAlt, FaLock } from "react-icons/fa";
 import Banner from "../components/Banner";
 import Contactsection from "../components/Contactsection";
 import { useGetDoctorsQuery } from "../services/doctorApi";
 import { useCreateAppointmentMutation } from "../services/appointmentApi";
 
-
 function Appointment() {
-  // reading the logged-in user straight from localStorage, set at login
-  const token = localStorage.getItem("token");
-  const storedUser = localStorage.getItem("user");
-  const user = storedUser ? JSON.parse(storedUser) : null;
+  // same auth state AdminRoute uses, so login checks stay consistent app-wide
+  const { token, user } = useSelector((state) => state.auth);
   const isLoggedIn = Boolean(token);
+
+  // if arriving from a doctor's profile page (?doctor=<id>), preselect them
+  const [searchParams] = useSearchParams();
+  const preselectedDoctor = searchParams.get("doctor") || "";
 
   const { data: doctors, isLoading: doctorsLoading } = useGetDoctorsQuery();
   const [createAppointment, { isLoading: isSubmitting }] = useCreateAppointmentMutation();
 
   const [formData, setFormData] = useState({
-    doctor: "",
+    doctor: preselectedDoctor,
     date: "",
     time: "",
     reason: "",

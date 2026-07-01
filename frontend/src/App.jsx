@@ -5,8 +5,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Services from "./pages/Services";
 import DoctorsPage from "./pages/DoctorsPage";
+import DoctorDetail from "./pages/DoctorDetail";
 import Contact from "./pages/Contact";
 import NewsPage from "./pages/Newspage";
+import NewsDetail from "./pages/NewsDetail";
 import Appointment from "./pages/Appointment";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -36,12 +38,20 @@ function App() {
       element: <><Header/><DoctorsPage/><Footer/></>,
     },
     {
+      path: "/doctors/:id",
+      element: <><Header/><DoctorDetail/><Footer/></>,
+    },
+    {
       path: "/contact",
       element: <><Header/><Contact/><Footer/></>,
     },
     {
       path: "/news",
       element: <><Header/><NewsPage/><Footer/></>,
+    },
+    {
+      path: "/news/:id",
+      element: <><Header/><NewsDetail/><Footer/></>,
     },
     {
       path: "/appointment",
