@@ -16,8 +16,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 import AdminNews from "../components/AdminNews";
-import AdminDoctors from "../components/AdminDoctor";
-import AdminAppointments from "../components/AdminAppointment";
+import AdminDoctors from "../components/AdminDoctors";
+import AdminAppointments from "../components/AdminAppointments";
 
 
 function AdminDashboard() {
