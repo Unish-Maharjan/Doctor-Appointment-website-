@@ -15,9 +15,10 @@ import { logout } from "../Authslice";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-import AdminNews from "../components/AdminNews";
+
 import AdminDoctors from "../components/AdminDoctors";
 import AdminAppointments from "../components/AdminAppointments";
+import AdminNews from "../components/AdminNews";
 
 
 function AdminDashboard() {
