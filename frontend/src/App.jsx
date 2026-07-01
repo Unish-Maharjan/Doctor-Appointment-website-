@@ -11,7 +11,7 @@ import Appointment from "./pages/Appointment";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/Admindashboard";
-import AdminRoute from "./components/AdminRoute";
+import Adminroute from "./components/Adminroute";
 
 function App() {
   const router = createBrowserRouter([
@@ -58,9 +58,9 @@ function App() {
     {
       path: "/dashboard",
       element: (
-        <AdminRoute>
+        <Adminroute>
           <AdminDashboard/>
-        </AdminRoute>
+        </Adminroute>
       ),
     }
   ]);
