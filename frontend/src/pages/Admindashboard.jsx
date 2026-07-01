@@ -9,12 +9,15 @@ import {
 } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import AdminDoctors from "../components/AdminDoctor";
-import AdminNews from "../components/AdminNews";
-import AdminAppointments from "../components/AdminAppointment";
+
+
 import { logout } from "../authSlice";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import AdminAppointments from "../components/AdminAppointment";
+import AdminNews from "../components/AdminNews";
+import AdminDoctors from "../components/AdminDoctor";
+
 
 function AdminDashboard() {
   const [page, setPage] = useState("overview");
@@ -94,7 +97,7 @@ function AdminDashboard() {
       <div className="flex-1">
         <main className="p-6 md:p-8">
           {page === "overview" && <Overview />}
-          {page === "doctors" && <AdminDoctors />}
+          {page === "doctors" && <AdminDoctors/>}
           {page === "news" && <AdminNews />}
           {page === "appointments" && <AdminAppointments />}
         </main>

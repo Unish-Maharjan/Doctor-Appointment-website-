@@ -3,7 +3,7 @@ import {
   useUpdateAppointmentStatusMutation,
 } from "../services/appointmentApi";
 
-const Adminappointments = () => {
+const AdminAppointments = () => {
   const { data, isLoading, isError } = useGetAllAppointmentsQuery();
   const appointments = data || [];
 
@@ -74,4 +74,4 @@ const Adminappointments = () => {
   );
 };
 
-export default Adminappointments;
+export default AdminAppointments;
