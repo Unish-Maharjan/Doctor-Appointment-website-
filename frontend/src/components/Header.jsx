@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaPhoneAlt, FaClock, FaMapMarkerAlt, FaBars, FaTimes, FaUser, FaSignOutAlt, FaTachometerAlt } from 'react-icons/fa'
-import { logout } from '../authSlice'
+import { logout } from '../Authslice'
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)

@@ -11,12 +11,13 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
-import { logout } from "../authSlice";
+import { logout } from "../Authslice";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import AdminAppointments from "../components/AdminAppointment";
+
 import AdminNews from "../components/AdminNews";
 import AdminDoctors from "../components/AdminDoctor";
+import AdminAppointments from "../components/AdminAppointment";
 
 
 function AdminDashboard() {

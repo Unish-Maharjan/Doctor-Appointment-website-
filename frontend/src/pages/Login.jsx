@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useLoginMutation } from "../services/authApi";
-import { setCredentials } from "../authSlice";
+import { setCredentials } from "../Authslice";
 
 const Login = () => {
   const navigate = useNavigate();
