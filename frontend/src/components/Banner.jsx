@@ -1,26 +1,39 @@
-import React from 'react'
+import { Link } from "react-router-dom";
 
-const Banner = ({ title, image }) => {
+function Banner({ title, image }) {
   return (
-    <>
-     {/* Page banner */}
-      <section className="relative">
-        <div className="h-72 bg-gray-300 relative flex items-end">
-          <div className="absolute inset-0 bg-[#161654]/70">
-          <img src={image} alt="Banner" className="w-full h-full object-cover opacity-40" />
-          </div>
-          <div className="relative px-6 md:px-20 pb-8">
-            <p className="text-white text-sm mb-2">Home / {title}</p>
-            <h1 className="text-white text-4xl md:text-5xl font-bold">{title}</h1>
-          </div>
+    <section className="relative">
+      <div className="h-56 md:h-72 relative flex items-end bg-gray-300 overflow-hidden">
+        {image && (
+          <img
+            src={image}
+            alt=""
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#161654]/90 via-[#161654]/50 to-[#161654]/20"></div>
+
+        <div className="relative px-6 md:px-20 pb-8 w-full">
+          <nav aria-label="breadcrumb">
+            <p className="text-[#dde9fc] text-sm mb-2">
+              <Link to="/" className="hover:text-white hover:underline transition-colors">
+                Home
+              </Link>
+              <span className="mx-2">/</span>
+              <span className="text-white">{title}</span>
+            </p>
+          </nav>
+          <h1 className="text-white text-3xl md:text-5xl font-bold leading-tight">{title}</h1>
         </div>
-        <div className="h-1 w-full flex">
-          <div className="w-1/2 bg-[#161654]"></div>
-          <div className="w-1/2 bg-[#3EA6E0]"></div>
-        </div>
-      </section>
-    </>
-  )
+      </div>
+
+      <div className="h-1 w-full flex">
+        <div className="w-1/2 bg-[#161654]"></div>
+        <div className="w-1/2 bg-[#3EA6E0]"></div>
+      </div>
+    </section>
+  );
 }
 
-export default Banner
+export default Banner;
