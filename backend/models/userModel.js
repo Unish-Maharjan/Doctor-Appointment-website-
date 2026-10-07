@@ -22,8 +22,52 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["patient", "admin"],
+      enum: [
+        "patient",
+        "admin",
+        "doctor",
+        "nurse",
+        "receptionist",
+        "pharmacist",
+        "lab_technician",
+      ],
       default: "patient",
+    },
+    // Patient Profile & Medical Information
+    gender: {
+      type: String,
+      enum: ["Male", "Female", "Other", ""],
+      default: "",
+    },
+    dateOfBirth: {
+      type: String,
+      default: "",
+    },
+    age: {
+      type: Number,
+      default: null,
+    },
+    bloodGroup: {
+      type: String,
+      enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", ""],
+      default: "",
+    },
+    address: {
+      type: String,
+      default: "",
+    },
+    emergencyContact: {
+      name: { type: String, default: "" },
+      phone: { type: String, default: "" },
+      relation: { type: String, default: "" },
+    },
+    medicalHistory: {
+      type: [String],
+      default: [],
+    },
+    allergies: {
+      type: [String],
+      default: [],
     },
   },
   { timestamps: true }

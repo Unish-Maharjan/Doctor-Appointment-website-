@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { FaPhoneAlt, FaClock, FaMapMarkerAlt, FaBars, FaTimes, FaUser, FaSignOutAlt, FaTachometerAlt } from 'react-icons/fa'
+import { FaPhoneAlt, FaClock, FaMapMarkerAlt, FaBars, FaTimes, FaUser, FaSignOutAlt, FaTachometerAlt, FaFileInvoiceDollar } from 'react-icons/fa'
 import { logout } from '../Authslice'
 
 const Header = () => {
@@ -126,6 +126,14 @@ const Header = () => {
 
             {user ? (
               <div className="flex items-center gap-2">
+                <Link
+                  to="/my-bills"
+                  className="text-white text-sm font-semibold px-4 py-2.5 rounded-full hover:scale-105 hover:shadow-lg transition flex items-center gap-2 bg-[#3EA6E0]/20 border border-[#3EA6E0]/40"
+                >
+                  <FaFileInvoiceDollar size={16} />
+                  <span>My Bills</span>
+                </Link>
+
                 {user.role === "admin" && (
                   <Link
                     to="/dashboard"
@@ -185,6 +193,15 @@ const Header = () => {
 
               {user ? (
                 <>
+                  <Link
+                    to="/my-bills"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-white text-sm font-semibold px-4 py-2.5 rounded-full w-fit flex items-center gap-2 bg-[#3EA6E0]/20"
+                  >
+                    <FaFileInvoiceDollar size={16} />
+                    <span>My Bills</span>
+                  </Link>
+
                   {user.role === "admin" && (
                     <Link to="/dashboard" onClick={() => setMenuOpen(false)} className="flex items-center gap-2">
                       <FaTachometerAlt size={16} />

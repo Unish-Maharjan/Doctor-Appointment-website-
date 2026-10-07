@@ -26,6 +26,14 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    consultationFee: {
+      type: Number,
+      default: 1000,
+    },
+    department: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Department",
+    },
   },
   { timestamps: true }
 );

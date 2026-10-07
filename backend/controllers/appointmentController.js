@@ -1,4 +1,8 @@
 const Appointment = require("../models/appointmentModel");
+const Doctor = require("../models/doctorModel");
+const Invoice = require("../models/invoiceModel");
+const { generateInvoiceNumber } = require("../utils/sequenceGenerator");
+const { recordAuditLog } = require("../utils/auditLogger");
 
 async function createAppointment(req, res) {
   try {
@@ -17,7 +21,65 @@ async function createAppointment(req, res) {
     });
 
     const savedAppointment = await newAppointment.save();
-    res.status(201).json(savedAppointment);
+
+    // Automatically generate invoice for the appointment
+    let generatedInvoice = null;
+    try {
+      const doctorDoc = await Doctor.findById(doctor);
+      const fee = doctorDoc && doctorDoc.consultationFee !== undefined ? doctorDoc.consultationFee : 1000;
+      const docName = doctorDoc ? doctorDoc.name : "Specialist";
+      const docSpec = doctorDoc ? doctorDoc.specialization : "General Medicine";
+
+      const invoiceNumber = await generateInvoiceNumber();
+      const invoice = new Invoice({
+        invoiceNumber,
+        patient: req.user._id,
+        appointment: savedAppointment._id,
+        doctor: doctorDoc ? doctorDoc._id : undefined,
+        items: [
+          {
+            serviceName: "Doctor Consultation",
+            serviceType: "consultation",
+            description: `Consultation with Dr. ${docName} (${docSpec}) on ${date} at ${time}`,
+            quantity: 1,
+            unitPrice: fee,
+            total: fee,
+          },
+        ],
+        subtotal: fee,
+        discount: 0,
+        tax: 0,
+        totalAmount: fee,
+        amountPaid: 0,
+        balanceDue: fee,
+        status: "ISSUED",
+        paymentStatus: "UNPAID",
+        dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        notes: `Auto-generated invoice for appointment on ${date} at ${time}`,
+        createdBy: req.user._id,
+      });
+
+      generatedInvoice = await invoice.save();
+
+      await recordAuditLog({
+        req,
+        action: "INVOICE_CREATED",
+        resource: "Invoice",
+        resourceId: generatedInvoice._id,
+        details: {
+          invoiceNumber: generatedInvoice.invoiceNumber,
+          appointment: savedAppointment._id,
+          totalAmount: fee,
+        },
+      });
+    } catch (invoiceErr) {
+      console.error("Auto-invoice generation error:", invoiceErr.message);
+    }
+
+    res.status(201).json({
+      ...savedAppointment.toObject(),
+      invoice: generatedInvoice,
+    });
   } catch (error) {
     res.status(500).json({ message: "Failed to create appointment", error: error.message });
   }

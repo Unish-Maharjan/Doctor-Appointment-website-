@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { FaSearch, FaUserMd, FaCalendarAlt, FaClock, FaExclamationCircle } from "react-icons/fa";
+import { FaSearch, FaUserMd, FaCalendarAlt, FaClock, FaExclamationCircle, FaFileInvoiceDollar } from "react-icons/fa";
 import {
   useGetAllAppointmentsQuery,
   useUpdateAppointmentStatusMutation,
 } from "../services/appointmentApi";
+import { useGenerateFromAppointmentMutation } from "../services/billingApi";
 
 function statusBadgeClasses(status) {
   if (status === "confirmed") {
@@ -20,8 +21,23 @@ function AdminAppointments() {
   const appointments = data || [];
 
   const [updateAppointmentStatus] = useUpdateAppointmentStatusMutation();
+  const [generateFromAppointment, { isLoading: isGeneratingInvoice }] = useGenerateFromAppointmentMutation();
+  const [billingLoadingId, setBillingLoadingId] = useState(null);
   const [updatingId, setUpdatingId] = useState(null);
   const [search, setSearch] = useState("");
+
+  async function handleGenerateBill(appointmentId) {
+    setBillingLoadingId(appointmentId);
+    try {
+      const res = await generateFromAppointment(appointmentId).unwrap();
+      const num = res.invoice?.invoiceNumber || "Invoice";
+      alert(`${num} generated/retrieved successfully!`);
+    } catch (err) {
+      alert(err?.data?.message || "Failed to generate bill");
+    } finally {
+      setBillingLoadingId(null);
+    }
+  }
 
   async function handleStatusChange(id, status) {
     setUpdatingId(id);
@@ -102,6 +118,7 @@ function AdminAppointments() {
               <th className="px-6 py-4">Date</th>
               <th className="px-6 py-4">Time</th>
               <th className="px-6 py-4">Status</th>
+              <th className="px-6 py-4 text-right">Billing</th>
             </tr>
           </thead>
           <tbody>
@@ -153,6 +170,16 @@ function AdminAppointments() {
                       <span className="text-xs text-gray-400">Saving...</span>
                     )}
                   </div>
+                </td>
+                <td className="px-6 py-4 text-right">
+                  <button
+                    onClick={() => handleGenerateBill(appointment._id)}
+                    disabled={billingLoadingId === appointment._id}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#E7EEFC] text-[#161654] hover:bg-[#3EA6E0] hover:text-white transition disabled:opacity-50"
+                  >
+                    <FaFileInvoiceDollar />
+                    <span>{billingLoadingId === appointment._id ? "Processing..." : "Generate Bill"}</span>
+                  </button>
                 </td>
               </tr>
             ))}

@@ -7,6 +7,7 @@ import {
   FaBars,
   FaSignOutAlt,
   FaTimes,
+  FaFileInvoiceDollar,
 } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,12 +19,14 @@ import Footer from "../components/Footer";
 import AdminDoctors from "../components/AdminDoctors";
 import AdminAppointments from "../components/AdminAppointments";
 import AdminNews from "../components/AdminNews";
+import AdminBilling from "../components/AdminBilling";
 
 const pageTitles = {
   overview: "Overview",
   doctors: "Doctors",
   news: "News",
   appointments: "Appointments",
+  billing: "Billing & Revenue Management",
 };
 
 function AdminDashboard() {
@@ -130,6 +133,18 @@ function AdminDashboard() {
               <FaCalendarCheck />
               {(showSidebar || mobileOpen) && "Appointments"}
             </button>
+            <button
+              onClick={() => goTo("billing")}
+              title="Billing & Revenue"
+              className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium border-l-4 transition-colors ${
+                page === "billing"
+                  ? "bg-[#3EA6E0] text-white border-white"
+                  : "text-[#dde9fc] border-transparent hover:bg-[#1B2363]"
+              }`}
+            >
+              <FaFileInvoiceDollar />
+              {(showSidebar || mobileOpen) && "Billing & Revenue"}
+            </button>
 
             <button
               onClick={() => setConfirmLogout(true)}
@@ -154,10 +169,11 @@ function AdminDashboard() {
           </div>
 
           <main className="p-6 md:p-8">
-            {page === "overview" && <Overview />}
+            {page === "overview" && <Overview onNavigate={goTo} />}
             {page === "doctors" && <AdminDoctors />}
             {page === "news" && <AdminNews />}
             {page === "appointments" && <AdminAppointments />}
+            {page === "billing" && <AdminBilling />}
           </main>
         </div>
       </div>
@@ -201,7 +217,7 @@ function AdminDashboard() {
   );
 }
 
-function Overview() {
+function Overview({ onNavigate }) {
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
@@ -209,9 +225,57 @@ function Overview() {
   });
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-8 anim-fadeInUp">
-      <h2 className="text-4xl font-bold text-[#161654] mb-2">Welcome back, Admin</h2>
-      <p className="text-gray-400">{today}</p>
+    <div className="space-y-6 anim-fadeInUp">
+      <div className="bg-white rounded-2xl shadow-sm p-8">
+        <h2 className="text-4xl font-bold text-[#161654] mb-2">Welcome back, Admin</h2>
+        <p className="text-gray-400">{today}</p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <button
+          onClick={() => onNavigate("billing")}
+          className="bg-white p-6 rounded-2xl shadow-xs border border-[#dde9fc] text-left hover:border-[#3EA6E0] transition group"
+        >
+          <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+            <FaFileInvoiceDollar />
+          </div>
+          <h3 className="font-extrabold text-[#161654] text-base mb-1">Billing & Revenue</h3>
+          <p className="text-xs text-gray-400">Manage hospital invoices, verify payments, and issue refunds.</p>
+        </button>
+
+        <button
+          onClick={() => onNavigate("appointments")}
+          className="bg-white p-6 rounded-2xl shadow-xs border border-[#dde9fc] text-left hover:border-[#3EA6E0] transition group"
+        >
+          <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+            <FaCalendarCheck />
+          </div>
+          <h3 className="font-extrabold text-[#161654] text-base mb-1">Appointments</h3>
+          <p className="text-xs text-gray-400">View upcoming bookings, change status, and bill appointments.</p>
+        </button>
+
+        <button
+          onClick={() => onNavigate("doctors")}
+          className="bg-white p-6 rounded-2xl shadow-xs border border-[#dde9fc] text-left hover:border-[#3EA6E0] transition group"
+        >
+          <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+            <FaUserMd />
+          </div>
+          <h3 className="font-extrabold text-[#161654] text-base mb-1">Doctors Roster</h3>
+          <p className="text-xs text-gray-400">Manage medical staff, consultation fees, and working hours.</p>
+        </button>
+
+        <button
+          onClick={() => onNavigate("news")}
+          className="bg-white p-6 rounded-2xl shadow-xs border border-[#dde9fc] text-left hover:border-[#3EA6E0] transition group"
+        >
+          <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+            <FaNewspaper />
+          </div>
+          <h3 className="font-extrabold text-[#161654] text-base mb-1">Hospital News</h3>
+          <p className="text-xs text-gray-400">Publish articles, updates, and medical health notices.</p>
+        </button>
+      </div>
     </div>
   );
 }

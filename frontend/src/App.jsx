@@ -14,6 +14,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/Admindashboard";
 import Adminroute from "./components/Adminroute";
+import MyBills from "./pages/MyBills";
 
 function App() {
   const router = createBrowserRouter([
@@ -64,6 +65,10 @@ function App() {
     {
       path: "/login",
       element: <><Header/><Login/><Footer/></>,
+    },
+    {
+      path: "/my-bills",
+      element: <><Header/><MyBills/><Footer/></>,
     },
     {
       path: "/dashboard",

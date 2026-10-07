@@ -4,6 +4,7 @@ import { authApi } from "./services/authApi";
 import { doctorApi } from "./services/doctorApi";
 import { newsApi } from "./services/newsApi";
 import { appointmentApi } from "./services/appointmentApi";
+import { billingApi } from "./services/billingApi";
 import authReducer from "./Authslice";
 
 export const store = configureStore({
@@ -13,12 +14,14 @@ export const store = configureStore({
     [doctorApi.reducerPath]: doctorApi.reducer,
     [newsApi.reducerPath]: newsApi.reducer,
     [appointmentApi.reducerPath]: appointmentApi.reducer,
+    [billingApi.reducerPath]: billingApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authApi.middleware,
       doctorApi.middleware,
       newsApi.middleware,
-      appointmentApi.middleware
+      appointmentApi.middleware,
+      billingApi.middleware
     ),
 });

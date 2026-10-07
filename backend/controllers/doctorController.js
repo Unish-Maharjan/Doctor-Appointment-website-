@@ -2,7 +2,15 @@ const Doctor = require("../models/doctorModel");
 
 async function getAllDoctors(req, res) {
   try {
-    const doctors = await Doctor.find();
+    const filter = {};
+    if (req.query.department) {
+      filter.department = req.query.department;
+    }
+    if (req.query.specialization) {
+      filter.specialization = new RegExp(req.query.specialization, "i");
+    }
+
+    const doctors = await Doctor.find(filter).populate("department", "name description location");
     res.status(200).json(doctors);
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch doctors", error: error.message });
@@ -11,7 +19,7 @@ async function getAllDoctors(req, res) {
 
 async function getDoctorById(req, res) {
   try {
-    const doctor = await Doctor.findById(req.params.id);
+    const doctor = await Doctor.findById(req.params.id).populate("department", "name description location");
 
     if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
@@ -25,7 +33,16 @@ async function getDoctorById(req, res) {
 
 async function addDoctor(req, res) {
   try {
-    const { name, specialization, photo, bio, availableDays, availableTime } = req.body;
+    const {
+      name,
+      specialization,
+      photo,
+      bio,
+      availableDays,
+      availableTime,
+      consultationFee,
+      department,
+    } = req.body;
 
     if (!name || !specialization) {
       return res.status(400).json({ message: "Name and specialization are required" });
@@ -38,6 +55,8 @@ async function addDoctor(req, res) {
       bio,
       availableDays,
       availableTime,
+      consultationFee: consultationFee !== undefined ? Number(consultationFee) : 1000,
+      department: department || undefined,
     });
 
     const savedDoctor = await newDoctor.save();

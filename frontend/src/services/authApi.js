@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://doctor-appointment-website-9j3t.onrender.com/api/",
+    baseUrl: import.meta.env.VITE_API_URL || "https://doctor-appointment-website-9j3t.onrender.com/api/",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth?.token;
 
